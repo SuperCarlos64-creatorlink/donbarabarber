@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DON BARA BARBER | Barber Supply Profesional</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script>
+tailwind.config={theme:{extend:{colors:{gold:'#C9A86A', charcoal:'#0F0F0F', bone:'#F8F6F2'}}}}
+</script>
+<style>
+body{font-family:'Inter',sans-serif;background:#0A0A0A;color:#fff}
+.serif{font-family:'Cormorant Garamond',serif}
+.gold-line{height:1px;background:linear-gradient(90deg,transparent,#C9A86A,transparent)}
+.product-card{background:#111;border:1px solid #1E1E1E;transition:all.4s}
+.product-card:hover{border-color:#C9A86A;transform:translateY(-6px);box-shadow:0 30px 60px rgba(0,0,0,.6)}
+.btn-gold{background:#C9A86A;color:#000}
+.btn-gold:hover{background:#fff}
+</style>
+</head>
+<body>
+
+<nav class="bg-black border-b border-[#1A1A1A] sticky top-0 z-50">
+<div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+<div class="flex items-center gap-4">
+<img src="https://files.catbox.moe/kwolpm.png" class="h-11 w-11 rounded-full border border-[#C9A86A] object-cover bg-white">
+<div>
+<p class="serif text-[22px] tracking-[0.15em] leading-none">DON BARA</p>
+<p class="text-[9px] tracking-[0.4em] text-[#C9A86A] mt-1">BARBER SUPPLY</p>
+</div>
+</div>
+<button id="cartBtn" class="border border-[#2A2A2A] px-6 py-2.5 rounded-full text-sm flex items-center gap-3 hover:border-[#C9A86A] transition">
+<span class="text-[11px] tracking-widest">CARRITO</span>
+<span id="cartCount" class="bg-[#C9A86A] text-black text-[11px] w-5 h-5 rounded-full flex items-center justify-center font-bold">0</span>
+</button>
+</div>
+</nav>
+
+<section class="bg-[#0A0A0A] py-16">
+<div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-10 items-center">
+<div class="lg:col-span-7">
+<p class="text-[#C9A86A] text-[11px] tracking-[0.5em] mb-6">DESDE OAXACA • PROFESIONAL</p>
+<h1 class="serif text-6xl md:text-7xl leading-[0.9]">ELEGANCIA<br><span class="text-[#C9A86A] italic font-light">PARA BARBEROS</span><br>EXIGENTES</h1>
+<div class="gold-line my-8 w-2/3"></div>
+<p class="text-[#8A8A8A] max-w-lg font-light leading-relaxed">Selección curada de productos 4x4, pomadas artesanales y herramientas profesionales.</p>
+<div class="mt-10 grid grid-cols-3 gap-6 text-center max-w-md">
+<div class="border border-[#1A1A1A] py-4"><p class="serif text-2xl text-[#C9A86A]">7</p><p class="text-[9px] tracking-widest text-[#666] mt-1">PRODUCTOS</p></div>
+<div class="border border-[#1A1A1A] py-4"><p class="serif text-2xl text-[#C9A86A]">24H</p><p class="text-[9px] tracking-widest text-[#666] mt-1">ENVÍO OAX</p></div>
+<div class="border border-[#1A1A1A] py-4"><p class="serif text-2xl text-[#C9A86A]">100%</p><p class="text-[9px] tracking-widest text-[#666] mt-1">ORIGINAL</p></div>
+</div>
+</div>
+<div class="lg:col-span-5">
+<div class="bg-[#111] border border-[#1E1E1E] p-8">
+<p class="text-[10px] tracking-[0.4em] text-[#C9A86A] mb-2">TU SELECCIÓN</p>
+<h3 class="serif text-3xl mb-6">Carrito Actual</h3>
+<div id="heroCartPreview" class="bg-[#0A0A0A] border border-[#1A1A1A] p-5 min-h-[160px] text-sm text-[#9A9A9A]">Aún no has agregado productos.</div>
+<div class="mt-6 flex justify-between text-[11px] tracking-widest text-[#666]"><span>TOTAL ESTIMADO</span><span id="heroTotal" class="text-white">$0 MXN</span></div>
+</div>
+</div>
+</div>
+</section>
+
+<div class="gold-line"></div>
+
+<main class="max-w-7xl mx-auto px-6 py-16">
+<p class="text-center text-[10px] tracking-[0.6em] text-[#C9A86A] mb-3">CATÁLOGO 2026</p>
+<h2 class="serif text-5xl text-center mb-14">Productos & Combos</h2>
+<div id="productsGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-[1px] bg-[#1A1A1A] border border-[#1A1A1A]"></div>
+</main>
+
+<div id="cartSidebar" class="fixed inset-0 z-[100] hidden">
+<div id="cartOverlay" class="absolute inset-0 bg-black/80 backdrop-blur"></div>
+<div class="absolute right-0 top-0 h-full w-full max-w-[420px] bg-[#0E0E0E] border-l border-[#1E1E1E] flex flex-col">
+<div class="p-8 border-b border-[#1A1A1A] flex justify-between items-center"><div><p class="text-[10px] tracking-[0.4em] text-[#C9A86A]">CARRITO</p><h2 class="serif text-3xl mt-1">Tu Pedido</h2></div><button id="closeCart" class="w-10 h-10 border border-[#2A2A2A] rounded-full">✕</button></div>
+<div id="cartItems" class="flex-1 overflow-y-auto p-6 space-y-4"></div>
+<div class="p-8 bg-black border-t border-[#1A1A1A]">
+<div class="flex justify-between serif text-2xl"><span>Total</span><span id="cartTotal" class="text-[#C9A86A]">$0 MXN</span></div>
+<button id="checkoutBtn" class="w-full mt-6 btn-gold py-4 tracking-[0.2em] text-[12px] font-bold">ENVIAR PEDIDO POR WHATSAPP — 951 198 6946</button>
+</div>
+</div>
+</div>
+
+<script>
+const products = [
+{id:'kemei',name:'KEMEI CLIPPER PROFESIONAL',price:699,image:'https://files.catbox.moe/12hcfc.png',badge:'BEST SELLER',desc:'Máquina inalámbrica con display digital.',includes:['Clipper verde + base de carga','Caja original','4 peines guía','Autonomía 90 min']},
+{id:'superwet',name:'SUPER WET - 3 POMADAS FLEX',price:249,image:'https://files.catbox.moe/trwf68.png',badge:'SET 3 PZS',desc:'Jojoba, Romero y Coconut - 6 oz.',includes:['1 Jojoba - Rojo','1 Romero - Morado','1 Coconut - Azul','Alta fijación lavable']},
+{id:'andis',name:'ANDIS BLADE CARA PLUS 16 OZ',price:175,image:'https://files.catbox.moe/22npry.png',badge:'DESINFECTANTE',desc:'Lubrica, desinfecta y enfría.',includes:['16 FL OZ','Desinfección en 10 min','Anti-óxido']},
+{id:'combo4x4basico',name:'COMBO 4x4 BÁSICO',price:227,image:'https://files.catbox.moe/n8l5g9.png',badge:'3 PIEZAS',desc:'Cuellos de papel + Espuma 5 en 1 + Talco Ultra Fino',includes:['Cuellos de Papel 100 pzs','Espuma 5 EN 1 Barba','Talco Ultra Fino 4x4']},
+{id:'combobara8',name:'COMBO BARA COMPLETO',price:599,image:'https://files.catbox.moe/crpgwh.png',badge:'8 PIEZAS PRO',desc:'Kit profesional más completo.',includes:['Barber Pole + Dorco PRO','Spray Enjuague 4x4','Talco Ultra Fino grande','Cera Amarilla','2 Aftershaves Donco']},
+{id:'combobaracera',name:'COMBO BARA + CERA PRO',price:599,image:'https://files.catbox.moe/4pl19g.png',badge:'7 PIEZAS',desc:'Edición con atomizadores premium.',includes:['Barber Pole + Baxa Barber','Talco Fino Negro 300ml','Raakge of Razor + APR','Aceite Stainless 4xC']},
+{id:'kong',name:'KONG PREMIUM - 3 POMADE',price:99,image:'https://files.catbox.moe/j7vuyv.png',badge:'$99 PROMO',desc:'Azul, Café y Roja - 100g c/u',includes:['Fijación Media/Alta/Extra','Aroma clásico barber','Brillo medio']}
+];
+let cart=JSON.parse(localStorage.getItem('bara_black')||'[]');
+function renderProducts(){
+document.getElementById('productsGrid').innerHTML=products.map(p=>`
+<div class="product-card p-8 flex flex-col bg-[#0F0F0F]">
+<div class="flex justify-between items-start mb-6"><span class="text-[9px] tracking-[0.3em] border border-[#2A2A2A] px-3 py-1 text-[#777]">${p.badge}</span><span class="serif text-[#C9A86A] text-xl">$${p.price}</span></div>
+<div class="bg-[#0A0A0A] h-[220px] flex items-center justify-center p-6 border border-[#151515]"><img src="${p.image}" class="max-h-[180px] object-contain"></div>
+<h3 class="serif text-[22px] mt-6 leading-tight">${p.name}</h3>
+<p class="text-[12px] text-[#777] mt-2 font-light">${p.desc}</p>
+<div class="mt-5 border-t border-[#1A1A1A] pt-4">
+<p class="text-[9px] tracking-[0.3em] text-[#C9A86A] mb-2">INCLUYE</p>
+<ul class="text-[11px] text-[#999] space-y-1 font-light">${p.includes.map(i=>`<li>— ${i}</li>`).join('')}</ul>
+</div>
+<button onclick="addToCart('${p.id}')" class="mt-8 w-full border border-[#2A2A2A] py-3 text-[11px] tracking-[0.3em] hover:bg-[#C9A86A] hover:text-black transition">AGREGAR AL CARRITO</button>
+</div>`).join('');
+}
+function addToCart(id){const pr=products.find(x=>x.id===id);const f=cart.find(x=>x.id===id);if(f)f.qty++;else cart.push({...pr,qty:1});save();openCart();}
+function save(){localStorage.setItem('bara_black',JSON.stringify(cart));update();}
+function update(){
+const count=cart.reduce((s,i)=>s+i.qty,0);
+document.getElementById('cartCount').innerText=count;
+const total=cart.reduce((s,i)=>s+i.price*i.qty,0);
+document.getElementById('cartTotal').innerText=`$${total} MXN`;
+document.getElementById('heroTotal').innerText=`$${total} MXN`;
+const items=document.getElementById('cartItems');
+const hero=document.getElementById('heroCartPreview');
+if(cart.length===0){items.innerHTML=`<div class="text-center py-20 text-[#555] text-sm">Carrito vacío</div>`;hero.innerHTML=`Aún no has agregado productos.`;return;}
+items.innerHTML=cart.map(i=>`<div class="flex gap-4 border border-[#1A1A1A] p-4 bg-[#0A0A0A]"><img src="${i.image}" class="w-14 h-14 object-contain bg-[#111] p-1"><div class="flex-1"><p class="text-[12px] tracking-wide">${i.name}</p><p class="text-[#C9A86A] text-[12px] mt-1">$${i.price}</p><div class="flex items-center gap-2 mt-3"><button onclick="changeQty('${i.id}',-1)" class="w-6 h-6 border border-[#2A2A2A] text-[12px]">-</button><span class="text-[12px] w-4 text-center">${i.qty}</span><button onclick="changeQty('${i.id}',1)" class="w-6 h-6 border border-[#2A2A2A] text-[12px]">+</button><button onclick="removeItem('${i.id}')" class="ml-auto text-[10px] text-[#555] tracking-widest">QUITAR</button></div></div></div>`).join('');
+hero.innerHTML=cart.map(i=>`<div class="flex justify-between py-1 border-b border-[#1A1A1A]"><span>${i.qty}x ${i.name}</span><span class="text-[#C9A86A]">$${i.price*i.qty}</span></div>`).join('')+`<div class="pt-3 flex justify-between font-bold"><span>TOTAL</span><span class="text-[#C9A86A]">$${total} MXN</span></div>`;
+}
+function changeQty(id,d){const it=cart.find(x=>x.id===id);it.qty+=d;if(it.qty<=0)cart=cart.filter(x=>x.id!==id);save();}
+function removeItem(id){cart=cart.filter(x=>x.id!==id);save();}
+function openCart(){document.getElementById('cartSidebar').classList.remove('hidden')}
+function closeCart(){document.getElementById('cartSidebar').classList.add('hidden')}
+document.getElementById('cartBtn').onclick=openCart;
+document.getElementById('closeCart').onclick=closeCart;
+document.getElementById('cartOverlay').onclick=closeCart;
+document.getElementById('checkoutBtn').onclick=()=>{if(cart.length===0)return;let msg=`Hola Don Bara, quiero hacer este pedido:%0A%0A`;cart.forEach(i=>{msg+=`• ${i.qty}x ${i.name} - $${i.price*i.qty} MXN%0A`;});msg+=`%0A*TOTAL: $${cart.reduce((s,i)=>s+i.price*i.qty,0)} MXN*%0AEnvío a Oaxaca?`;window.open(`https://wa.me/5219511986946?text=${msg}`,'_blank');};
+renderProducts();update();
+</script>
+</body>
+</html>
